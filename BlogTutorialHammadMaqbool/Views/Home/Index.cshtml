@@ -1,4 +1,5 @@
 ﻿@using BlogTutorialHammadMaqbool.Models
+@using System.Web
 @model IEnumerable<Post>
 
 @foreach (var item in Model)
@@ -15,11 +16,11 @@
             <p>
                 @if (item.Content.Length <= 100)
                 {
-                    @item.Content
+                    @Html.Raw(HttpUtility.HtmlDecode(item.Content))
                 }
                 else
                 {
-                    @item.Content.Substring(0, 100);
+                    @Html.Raw(HttpUtility.HtmlDecode(item.Content.Substring(0, 100)))
                 }
             </p>
             <div class="w3-row">

@@ -1,4 +1,5 @@
 ﻿@using BlogTutorialHammadMaqbool.Models
+@using System.Web;
 
 @model Post
 
@@ -15,7 +16,7 @@
 
     <div class="w3-container">
         <p>
-            @Model.Content
+            @Html.Raw(HttpUtility.HtmlDecode(Model.Content))
         </p>
         <div class="w3-row">
         </div>
