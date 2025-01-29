@@ -50,5 +50,21 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
             return RedirectToAction("AllPosts", "Admin");
         }
+
+        public IActionResult UpdatePost(int Id)
+        {
+            var PostToUpdate = db.Tbl_Post.Find(Id);
+
+            return View(PostToUpdate);
+        }
+
+        [HttpPost]
+        public IActionResult UpdatePost(Post post)
+        {
+            db.Tbl_Post.Update(post);
+            db.SaveChanges();
+
+            return RedirectToAction("AllPosts", "Admin");
+        }
     }
 }
