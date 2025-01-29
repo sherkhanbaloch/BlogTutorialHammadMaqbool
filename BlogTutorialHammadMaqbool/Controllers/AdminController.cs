@@ -21,6 +21,7 @@ namespace BlogTutorialHammadMaqbool.Controllers
         public IActionResult AddPost()
         {
             return View();
+
         }
 
         [HttpPost]
@@ -29,6 +30,25 @@ namespace BlogTutorialHammadMaqbool.Controllers
             db.Tbl_Post.Add(myPost);
             db.SaveChanges();
             return View();
+        }
+
+        public IActionResult AllPosts()
+        {
+            var allPosts = db.Tbl_Post;
+            return View(allPosts);
+        }
+
+        public IActionResult DeletePost(int Id)
+        {
+            var PostToDelete = db.Tbl_Post.Find(Id);
+
+            if (PostToDelete != null)
+            {
+                db.Remove(PostToDelete);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("AllPosts", "Admin");
         }
     }
 }
