@@ -33,9 +33,9 @@ namespace BlogTutorialHammadMaqbool.Controllers
             if (ModelState.IsValid)
             {
                 string ImageName = myPost.Image.FileName.ToString();
-                var FolderPath = Path.Combine(evn.WebRootPath, "images"); // webroot/images
-                var CompletePath = Path.Combine(FolderPath, ImageName); // webroot/images/abc.jpg
-                myPost.Image.CopyTo(new FileStream(CompletePath, FileMode.Create));
+                var FolderPath = Path.Combine(evn.WebRootPath, "images", ImageName); // webroot/images
+                // var CompletePath = Path.Combine(FolderPath, ImageName);  webroot/images/abc.jpg
+                myPost.Image.CopyTo(new FileStream(FolderPath, FileMode.Create));
 
                 Post post = new Post();
                 post.Title = myPost.Title;
