@@ -1,5 +1,6 @@
 ﻿using BlogTutorialHammadMaqbool.Data;
 using BlogTutorialHammadMaqbool.Models;
+using BlogTutorialHammadMaqbool.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogTutorialHammadMaqbool.Controllers
@@ -7,10 +8,12 @@ namespace BlogTutorialHammadMaqbool.Controllers
     public class AdminController : Controller
     {
         AppDbContext db;
+        IWebHostEnvironment evn;
 
-        public AdminController(AppDbContext _db)
+        public AdminController(AppDbContext _db, IWebHostEnvironment _evn)
         {
             db = _db;
+            evn = _evn;
         }
 
         public IActionResult Index()
@@ -25,10 +28,29 @@ namespace BlogTutorialHammadMaqbool.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPost(Post myPost)
+        public IActionResult AddPost(PostVM myPost)
         {
-            db.Tbl_Post.Add(myPost);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                string ImageName = myPost.Image.FileName.ToString();
+                var FolderPath = Path.Combine(evn.WebRootPath, "images"); // webroot/images
+                var CompletePath = Path.Combine(FolderPath, ImageName); // webroot/images/abc.jpg
+                myPost.Image.CopyTo(new FileStream(CompletePath, FileMode.Create));
+
+                Post post = new Post();
+                post.Title = myPost.Title;
+                post.SubTitle = myPost.SubTitle;
+                post.Content = myPost.Content;
+                post.Date = myPost.Date;
+                post.Image = ImageName;
+                post.Slug = myPost.Slug;
+
+                db.Tbl_Post.Add(post);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
