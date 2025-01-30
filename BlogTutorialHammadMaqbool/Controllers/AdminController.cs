@@ -121,5 +121,27 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
             return View();
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginVM login)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = db.Tbl_Profile.Where(x => x.UserName.Equals(login.UserName) && x.Password.Equals(login.Password)).FirstOrDefault();
+
+                if (result != null)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                ViewData["LoginMessage"] = "Invalid User Name or Password.";
+            }
+            return View();
+        }
     }
 }
