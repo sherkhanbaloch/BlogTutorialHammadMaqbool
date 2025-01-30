@@ -2,6 +2,7 @@
 using BlogTutorialHammadMaqbool.Models;
 using BlogTutorialHammadMaqbool.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace BlogTutorialHammadMaqbool.Controllers
 {
@@ -87,6 +88,38 @@ namespace BlogTutorialHammadMaqbool.Controllers
             db.SaveChanges();
 
             return RedirectToAction("AllPosts", "Admin");
+        }
+
+        public IActionResult CreateProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateProfile(ProfileVM profileVM)
+        {
+            if (ModelState.IsValid)
+            {
+                string ImageName = profileVM.Image.FileName.ToString();
+                string FolderPath = Path.Combine(evn.WebRootPath, "images");
+                string CompletePath = Path.Combine(FolderPath, ImageName);
+                profileVM.Image.CopyTo(new FileStream(CompletePath, FileMode.Create));
+
+                Profile profile = new Profile();
+                profile.Name = profileVM.Name;
+                profile.FatherName = profileVM.FatherName;
+                profile.Bio = profileVM.Bio;
+                profile.Image = ImageName;
+                profile.UserName = profileVM.UserName;
+                profile.Password = profileVM.Password;
+
+                db.Tbl_Profile.Add(profile);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
         }
     }
 }

@@ -1,0 +1,74 @@
+﻿@using BlogTutorialHammadMaqbool.ViewModel
+@model ProfileVM
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+
+            <h2>Create New User Profile</h2>
+
+            <form asp-controller="Admin" asp-action="CreateProfile" enctype="multipart/form-data">
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Name"></label>
+                            <input class="form-control" asp-for="Name" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="FatherName"></label>
+                            <input class="form-control" asp-for="FatherName" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Image"></label>
+                            <input class="form-control" asp-for="Image" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserName"></label>
+                            <input class="form-control" asp-for="UserName" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Bio"></label>
+                            <input class="form-control" asp-for="Bio" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Password"></label>
+                            <input class="form-control" asp-for="Password" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="ConfirmPassword"></label>
+                            <input class="form-control" asp-for="ConfirmPassword" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Create Profile</button>
+
+            </form>
+        </div>
+    </div>
+
+</div>

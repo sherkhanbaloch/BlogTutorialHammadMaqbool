@@ -7,6 +7,8 @@
         public string FatherName { get; set; }
         public string Bio { get; set; }
         public string Image { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
 
     }
 }
