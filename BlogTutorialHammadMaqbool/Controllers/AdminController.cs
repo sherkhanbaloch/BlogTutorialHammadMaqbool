@@ -19,14 +19,30 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult Index()
         {
-            DisplayData();
-            return View();
+            if (HttpContext.Session.GetString("LoginFlag") != null)
+            {
+                ViewBag.NumberOfPosts = db.Tbl_Post.Count();
+                ViewBag.NumberOfUsers = db.Tbl_Profile.Count();
+                DisplayData();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Admin");
+            }
         }
 
         public IActionResult AddPost()
         {
-            DisplayData();
-            return View();
+            if (HttpContext.Session.GetString("LoginFlag") != null)
+            {
+                DisplayData();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Admin");
+            }
         }
 
         [HttpPost]
@@ -60,9 +76,16 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult AllPosts()
         {
-            DisplayData();
-            var allPosts = db.Tbl_Post;
-            return View(allPosts);
+            if (HttpContext.Session.GetString("LoginFlag") != null)
+            {
+                DisplayData();
+                var allPosts = db.Tbl_Post;
+                return View(allPosts);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Admin");
+            }
         }
 
         public IActionResult DeletePost(int Id)
@@ -80,11 +103,18 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult UpdatePost(int Id)
         {
-            DisplayData();
+            if (HttpContext.Session.GetString("LoginFlag") != null)
+            {
+                DisplayData();
 
-            var PostToUpdate = db.Tbl_Post.Find(Id);
+                var PostToUpdate = db.Tbl_Post.Find(Id);
 
-            return View(PostToUpdate);
+                return View(PostToUpdate);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Admin");
+            }
         }
 
         [HttpPost]
@@ -98,8 +128,15 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult CreateProfile()
         {
-            DisplayData();
-            return View();
+            if (HttpContext.Session.GetString("LoginFlag") != null)
+            {
+                DisplayData();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Admin");
+            }
         }
 
         [HttpPost]
@@ -145,6 +182,7 @@ namespace BlogTutorialHammadMaqbool.Controllers
                 if (result != null)
                 {
                     HttpContext.Session.SetInt32("ProfileId", result.Id);
+                    HttpContext.Session.SetString("LoginFlag", "true");
                     return RedirectToAction("Index", "Admin");
                 }
 

@@ -15,7 +15,7 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Number of Posts
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">150</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.NumberOfPosts</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-list fa-2x text-gray-300"></i>
@@ -34,7 +34,7 @@
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Comments (Total)
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">215,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -51,9 +51,9 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Draft Posts
+                            Date
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@DateTime.Now.ToString("dd/MM/yyyy")</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-inbox fa-2x text-gray-300"></i>
@@ -72,7 +72,7 @@
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             Total Users
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.NumberOfUsers</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user fa-2x text-gray-300"></i>
