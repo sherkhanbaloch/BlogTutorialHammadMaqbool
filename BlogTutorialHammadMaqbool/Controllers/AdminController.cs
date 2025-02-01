@@ -19,18 +19,21 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult Index()
         {
+            DisplayData();
             return View();
         }
 
         public IActionResult AddPost()
         {
+            DisplayData();
             return View();
-
         }
 
         [HttpPost]
         public IActionResult AddPost(PostVM myPost)
         {
+            DisplayData();
+
             if (ModelState.IsValid)
             {
                 string ImageName = myPost.Image.FileName.ToString();
@@ -57,6 +60,7 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult AllPosts()
         {
+            DisplayData();
             var allPosts = db.Tbl_Post;
             return View(allPosts);
         }
@@ -76,6 +80,8 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult UpdatePost(int Id)
         {
+            DisplayData();
+
             var PostToUpdate = db.Tbl_Post.Find(Id);
 
             return View(PostToUpdate);
@@ -92,12 +98,14 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
         public IActionResult CreateProfile()
         {
+            DisplayData();
             return View();
         }
 
         [HttpPost]
         public IActionResult CreateProfile(ProfileVM profileVM)
         {
+            DisplayData();
             if (ModelState.IsValid)
             {
                 string ImageName = profileVM.Image.FileName.ToString();
@@ -136,12 +144,18 @@ namespace BlogTutorialHammadMaqbool.Controllers
 
                 if (result != null)
                 {
+                    HttpContext.Session.SetInt32("ProfileId", result.Id);
                     return RedirectToAction("Index", "Admin");
                 }
 
                 ViewData["LoginMessage"] = "Invalid User Name or Password.";
             }
             return View();
+        }
+
+        public void DisplayData()
+        {
+            ViewBag.Profile = db.Tbl_Profile.Where(x => x.Id.Equals(HttpContext.Session.GetInt32("ProfileId"))).FirstOrDefault();
         }
     }
 }
