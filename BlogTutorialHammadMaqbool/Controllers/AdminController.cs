@@ -195,5 +195,28 @@ namespace BlogTutorialHammadMaqbool.Controllers
         {
             ViewBag.Profile = db.Tbl_Profile.Where(x => x.Id.Equals(HttpContext.Session.GetInt32("ProfileId"))).FirstOrDefault();
         }
+
+        public IActionResult UpdateProfile(int Id)
+        {
+            DisplayData();
+            var myProfile = db.Tbl_Profile.Find(Id);
+
+            ProfileVM profileVM = new ProfileVM();
+            profileVM.Name = myProfile.Name;
+            profileVM.FatherName = myProfile.FatherName;
+            profileVM.Bio = myProfile.Bio;
+            ViewData["ImageName"] = myProfile.Image;
+            profileVM.UserName = myProfile.UserName;
+            profileVM.Password = myProfile.Password;
+            profileVM.ConfirmPassword = myProfile.Password;
+
+            return View(profileVM);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProfile(ProfileVM profile)
+        {
+            return View();
+        }
     }
 }
